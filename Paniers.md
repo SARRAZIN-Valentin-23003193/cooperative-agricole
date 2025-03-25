@@ -7,7 +7,7 @@ Définition d'un panier :
 - Prix du panier
 - Quantités disponibles
 - Il peut être validé ou refusé
-- Il peut donner lieu à une ou plusieurs commandes
+- Il peut donner lieu à une ou plusieurs commandes ()
 
 Lors de la validation d'une commande, les paniers associés à celle-ci seront enregistrés
 La date de dernière mise à jours du panier sera enregistrée
