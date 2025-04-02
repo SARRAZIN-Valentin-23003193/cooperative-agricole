@@ -1,28 +1,27 @@
 package fr.univamu.iut.panier;
 
 /**
- * Classe représentant un livre
+ * Classe représentant un panier
  */
 public class Panier {
 
     /**
-     * Référence du livre
+     * Id du panier
      */
     protected String basket_id;
 
     /**
-     * titre du livre
+     * Nom du panier
      */
     protected String name;
 
     /**
-     * Auteurs du livre
+     * Quantité du panier
      */
     protected String quantity;
 
     /**
-     * Statut du livre
-     * ('r' pour réservé, 'e' pour emprunté, et 'd' pour disponible)
+     * Prix du panier
      */
     protected String price;
 
@@ -33,10 +32,10 @@ public class Panier {
     }
 
     /**
-     * Constructeur de livre
-     * @param basket_id référence du livre
-     * @param name titre du livre
-     * @param quantity auteurs du livre
+     * Constructeur de panier
+     * @param basket_id id du panier
+     * @param name nom du panier
+     * @param quantity quantité du panier
      * @param price prix du panier
      */
     public Panier(String basket_id, String name, String quantity, String price){
