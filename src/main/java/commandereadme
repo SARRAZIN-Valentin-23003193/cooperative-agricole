@@ -1,0 +1,9 @@
+-commande possible uniquement aux abonnés
+-plusieurs commande possible par abonnées
+-une commande = un/des panier (validé par un utilisateur/abonné) + prix total du/des paniers + date/lieu pour retrait
+-les gestionnaires doivent validé une commande au préalable pour qu'elle soit effective
+
+-créer commande (plusieurs paniers possible) --> si validé (par admin) --> récuperer panier/s (sous forme liste) en rajoutant info complémentaires (prix total/lieu/date) 
+-pour l'affichage d'une commande, on aura : commande_dupont{panier1{infopanier1,date1,lieu1}panier2{infopanier2,date2,lieu2}} ou infopanier correspond au données d'un panier fourni par l'API PANIER
+
+-lieu de retrait ?
