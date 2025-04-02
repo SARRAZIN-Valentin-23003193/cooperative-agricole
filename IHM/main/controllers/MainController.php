@@ -48,7 +48,7 @@ $errorMessage = "Identifiants invalides.";
 }
 
 // Affichage du formulaire de connexion
-$layout = new \gui\Layout();
+$layout = new \gui\Layout("gui/layout.html");
 $view = new \gui\ViewLogin($layout, isset($errorMessage) ? $errorMessage : '');
 $view->display();
 }
