@@ -1,4 +1,4 @@
-package fr.univamu.iut.APIPU;
+package fr.univamu.iut.glassfishtest1;
 
 public class User {
     protected int id;

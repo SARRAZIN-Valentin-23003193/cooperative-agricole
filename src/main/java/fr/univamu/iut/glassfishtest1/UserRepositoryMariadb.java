@@ -1,4 +1,4 @@
-package fr.univamu.iut.APIPU;
+package fr.univamu.iut.glassfishtest1;
 
 import java.sql.*;
 
@@ -14,24 +14,23 @@ public class UserRepositoryMariadb implements UserRepositoryInterface {
     }
 
     @Override
-    public User Authentificate(String mail, String password) {
+    public Integer Authentificate(String mail, String password) {
         try {
-            String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
+            String sql = "SELECT user_id FROM Utilisateurs WHERE email = ? AND mdp = ?";
             PreparedStatement statement = dbConnection.prepareStatement(sql);
             statement.setString(1, mail);
             statement.setString(2, password);
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                return new User(
-                    resultSet.getInt("id"),
-                    resultSet.getString("name"),
-                    resultSet.getString("email"),
-                    resultSet.getString("password")
-                );
-            } else {
-                return null;
+                Integer userId = resultSet.getInt("user_id");
+                resultSet.close();
+                statement.close();
+                return userId;
             }
+            resultSet.close();
+            statement.close();
+            return null;
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             return null;

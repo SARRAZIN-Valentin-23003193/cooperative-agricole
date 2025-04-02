@@ -1,4 +1,4 @@
-package fr.univamu.iut.APIPU;
+package fr.univamu.iut.glassfishtest1;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
 public class Produit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected int item_id;
+    protected int id;
     protected String name;
     protected int quantity;
     protected double price;
@@ -17,23 +17,25 @@ public class Produit {
     public Produit() {}
 
     public Produit(int id, String name, int quantity, double price) {
-        this.item_id = id;
+        this.id = id;
         this.name = name;
         this.quantity = quantity;
         this.price = price;
     }
 
     public int getId() {
-        return item_id;
+        return id;
     }
 
     public void setId(int id) {
-        this.item_id = id;
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
+
+    public void setName(String name) { this.name = name; }
 
     public int getQuantity() {
         return quantity;
@@ -54,7 +56,7 @@ public class Produit {
     @Override
     public String toString() {
         return "Produit{" +
-                "item_id=" + item_id +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", quantity=" + quantity +
                 ", price=" + price +

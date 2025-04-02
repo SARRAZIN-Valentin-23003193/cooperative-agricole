@@ -1,4 +1,4 @@
-package fr.univamu.iut.APIPU;
+package fr.univamu.iut.glassfishtest1;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -16,12 +16,7 @@ public class UserService {
         this.userRepo = userRepo;
     }
     
-    public boolean Authentificate(String mail, String password) {
-        User user = userRepo.Authentificate(mail, password);
-        if (user != null) {
-            return true;
-        } else {
-            return false;
-        }
+    public Integer Authentificate(String mail, String password) {
+        return userRepo.Authentificate(mail, password);
     }
 }

@@ -1,4 +1,4 @@
-package fr.univamu.iut.APIPU;
+package fr.univamu.iut.glassfishtest1;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
