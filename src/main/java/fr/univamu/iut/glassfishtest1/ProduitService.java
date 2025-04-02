@@ -23,7 +23,7 @@ public class ProduitService {
     }
 
     public Produit getProduit(int id) {
-        return produitRepo.getProduit(id);
+        return produitRepo.getProduitById(id);
     }
 
     public List<Produit> getAllProduits() {

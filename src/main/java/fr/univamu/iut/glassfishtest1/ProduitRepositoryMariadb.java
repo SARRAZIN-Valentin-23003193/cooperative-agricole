@@ -66,12 +66,18 @@ public class ProduitRepositoryMariadb implements ProduitRepositoryInterface {
 
     @Override
     public void updateProduit(Produit produit) {
-
-    }
-
-    @Override
-    public Produit getProduit(int id) {
-        return getProduitById(id);
+        try {
+            String query = "UPDATE Produits SET name = ?, quantity = ?, price = ? WHERE item_id = ?";
+            PreparedStatement stmt = dbConnection.prepareStatement(query);
+            stmt.setString(1, produit.getName());
+            stmt.setInt(2, produit.getQuantity());
+            stmt.setInt(3, (int)produit.getPrice());
+            stmt.setInt(4, produit.getId());
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     @Override

@@ -4,15 +4,13 @@ import java.util.*;
 
 public interface ProduitRepositoryInterface {
 
-    public List<Produit> getProduits();
+    List<Produit> getProduits();
 
-    public Produit getProduitById(int id);
+    Produit getProduitById(int id);
 
-    public void updateProduit(Produit produit);
+    void updateProduit(Produit produit);
 
-    public Produit getProduit(int id);
+    void createProduit(Produit produit);
 
-    public void createProduit(Produit produit);
-
-    public void deleteProduit(int id);
+    void deleteProduit(int id);
 }
