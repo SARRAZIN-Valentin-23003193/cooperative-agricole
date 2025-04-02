@@ -1,44 +1,37 @@
 <?php
 namespace domain;
 
-class Panier {
-    private $id;
-    private $produits = [];
-    private $dateMiseAJour;
-    private $prixTotal;
+class Panier
+{
+private $id;
+private $produits;
+private $prixTotal;
 
-    public function __construct($id) {
-        $this->id = $id;
-        $this->dateMiseAJour = date("Y-m-d H:i:s");
-        $this->prixTotal = 0;
-    }
+public function __construct($id, $produits, $prixTotal)
+{
+$this->id = $id;
+$this->produits = $produits;
+$this->prixTotal = $prixTotal;
+}
 
-    public function ajouterProduit($produit, $quantite) {
-        $this->produits[$produit->getId()] = ['produit' => $produit, 'quantite' => $quantite];
-        $this->calculerPrixTotal();
-    }
+public function getId()
+{
+return $this->id;
+}
 
-    public function supprimerProduit($produitId) {
-        unset($this->produits[$produitId]);
-        $this->calculerPrixTotal();
-    }
+public function getProduits()
+{
+return $this->produits;
+}
 
-    private function calculerPrixTotal() {
-        $this->prixTotal = 0;
-        foreach ($this->produits as $produitData) {
-            $this->prixTotal += $produitData['produit']->getPrix() * $produitData['quantite'];
-        }
-    }
+public function getPrixTotal()
+{
+return $this->prixTotal;
+}
 
-    public function getPrixTotal() {
-        return $this->prixTotal;
-    }
-
-    public function getProduits() {
-        return $this->produits;
-    }
-
-    public function getDateMiseAJour() {
-        return $this->dateMiseAJour;
-    }
+public function getDateMiseAJour()
+{
+// Retourner une date fictive ou l'implémenter selon la logique de ton application
+return "2025-04-02 15:49:11";  // Ex: valeur statique, tu peux l'ajuster.
+}
 }

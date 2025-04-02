@@ -1,5 +1,4 @@
 <?php
-
 namespace data;
 
 use service\PanierAccessInterface;
@@ -10,98 +9,56 @@ include_once "domain/Panier.php";
 
 class ApiPanier implements PanierAccessInterface
 {
-    /**
-     * Crée un panier avec une liste de produits.
-     *
-     * @param array $produits Une liste de produits (id et quantité).
-     * @return bool True si le panier est créé avec succès, sinon false.
-     */
-    public function createPanier($produits)
-    {
-        // URL de l'API pour créer un panier
-        $apiUrl = "https://exemple-api.com/paniers"; // Remplacer par l'URL réelle de ton API
+/**
+* Récupère tous les paniers disponibles via l'API.
+*
+* @return array Un tableau contenant tous les paniers disponibles.
+*/
+public function getAllPaniers(): array
+{
+$apiUrl = "http://127.0.0.1:8080/api-paniers-1.0-SNAPSHOT/api/paniers";
 
-        // Données à envoyer dans la requête POST
-        $data = array(
-            'produits' => $produits // Ex: [['idProduit' => 1, 'quantite' => 2], ['idProduit' => 2, 'quantite' => 3]]
-        );
+// Initialisation de la requête CURL
+$curlConnection = curl_init();
+$params = array(
+CURLOPT_URL => $apiUrl,
+CURLOPT_RETURNTRANSFER => true,
+CURLOPT_HTTPHEADER => array('Content-Type: application/json'),
+);
 
-        // Initialisation de la connexion à l'API avec CURL
-        $curlConnection = curl_init();
+curl_setopt_array($curlConnection, $params);
+$response = curl_exec($curlConnection);
+curl_close($curlConnection);
 
-        // Paramètres de la requête CURL
-        $params = array(
-            CURLOPT_URL => $apiUrl,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => array('Content-Type: application/json'),
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => json_encode($data)
-        );
+if (!$response) {
+echo "Erreur CURL : " . curl_error($curlConnection);
+return array('error' => 'Erreur de connexion à l\'API');
+}
 
-        // Exécution de la requête CURL
-        curl_setopt_array($curlConnection, $params);
-        $response = curl_exec($curlConnection);
-        curl_close($curlConnection);
+$response = json_decode($response, true);
 
-        // Vérifier si la requête a échoué
-        if (!$response) {
-            echo curl_error($curlConnection);
-            return false;
-        }
+// Vérifier si le JSON est bien un tableau
+if (!is_array($response)) {
+return array('error' => 'Réponse invalide de l\'API');
+}
 
-        // Décoder la réponse JSON
-        $response = json_decode($response, true);
+$paniers = array();
 
-        // Vérifier la réponse de l'API
-        if (isset($response['success']) && $response['success'] === true) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+// Itérer sur chaque panier retourné par l'API
+foreach ($response as $panierData) {
+// Création de chaque panier avec ses informations
+$panier = new Panier(
+$panierData['basket_id'],   // basket_id
+[                           // produits
+'name' => $panierData['name'],
+'quantity' => $panierData['quantity'],
+'price' => $panierData['price']
+],
+$panierData['price']        // prixTotal
+);
+$paniers[] = $panier;
+}
 
-    /**
-     * Récupère un panier par son ID via l'API.
-     *
-     * @param int $id L'ID du panier.
-     * @return Panier|null L'objet Panier si trouvé, sinon null.
-     */
-    public function getPanierById($id)
-    {
-        // URL de l'API pour récupérer un panier spécifique
-        $apiUrl = "https://exemple-api.com/paniers/{$id}"; // Remplacer par l'URL réelle de ton API
-
-        // Initialisation de la connexion à l'API avec CURL
-        $curlConnection = curl_init();
-
-        // Paramètres de la requête CURL
-        $params = array(
-            CURLOPT_URL => $apiUrl,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => array('Content-Type: application/json'),
-        );
-
-        // Exécution de la requête CURL
-        curl_setopt_array($curlConnection, $params);
-        $response = curl_exec($curlConnection);
-        curl_close($curlConnection);
-
-        // Vérifier si la requête a échoué
-        if (!$response) {
-            echo curl_error($curlConnection);
-            return null;
-        }
-
-        // Décoder la réponse JSON
-        $response = json_decode($response, true);
-
-        // Vérifier si le panier existe
-        if (isset($response['data'])) {
-            // Créer l'objet Panier
-            $panierData = $response['data'];
-            return new Panier($panierData['id'], $panierData['produits'], $panierData['prixTotal']);
-        }
-
-        return null;
-    }
+return $paniers;
+}
 }

@@ -10,13 +10,15 @@ include_once 'gui/ViewLogin.php'; // Inclure le fichier de la classe ViewHome
 
 class MainController {
 
-    public function homePage() {
+    public function homePage(): void
+    {
         $layout = new Layout("gui/layout.html");
         $view = new ViewHome($layout);
         $view->display();
     }
 
-    public function loginPage() {
+    public function loginPage(): void
+    {
         $layout = new Layout("gui/layout.html");
         $view = new ViewLogin($layout);
         $view->display();

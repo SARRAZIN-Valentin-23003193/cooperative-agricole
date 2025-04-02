@@ -5,12 +5,10 @@ namespace service;
 interface CommandeAccessInterface
 {
     /**
-     * Crée une commande avec les paniers associés et le prix total.
+     * Récupère toutes les commandes existantes d'un utilisateur en utilisant son ID.
      *
-     * @param array $panierId L'ID du panier à inclure dans la commande.
-     * @param string $retraitDate La date de retrait de la commande.
-     * @param string $lieuRetrait Le lieu de retrait de la commande.
-     * @return bool True si la commande est créée avec succès, sinon false.
+     * @param string $userId L'ID de l'utilisateur dont on veut récupérer les commandes.
+     * @return array Une liste des commandes de l'utilisateur.
      */
-    public function createCommande($panierId, $retraitDate, $lieuRetrait);
+    public function getCommandesByUserId($userId): array;
 }
