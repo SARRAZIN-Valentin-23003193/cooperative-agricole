@@ -5,7 +5,9 @@ use service\PanierAccessInterface;
 include_once "service/PanierAccessInterface.php";
 
 use domain\Panier;
+use domain\Produit;
 include_once "domain/Panier.php";
+include_once "domain\Produit.php";
 
 class ApiPanier implements PanierAccessInterface
 {
@@ -18,7 +20,6 @@ public function getAllPaniers(): array
 {
 $apiUrl = "http://127.0.0.1:8080/api-paniers-1.0-SNAPSHOT/api/paniers";
 
-// Initialisation de la requête CURL
 $curlConnection = curl_init();
 $params = array(
 CURLOPT_URL => $apiUrl,
@@ -44,19 +45,19 @@ return array('error' => 'Réponse invalide de l\'API');
 
 $paniers = array();
 
-// Itérer sur chaque panier retourné par l'API
 foreach ($response as $panierData) {
-// Création de chaque panier avec ses informations
-$panier = new Panier(
-$panierData['basket_id'],   // basket_id
-[                           // produits
-'name' => $panierData['name'],
-'quantity' => $panierData['quantity'],
-'price' => $panierData['price']
-],
-$panierData['price']        // prixTotal
+// Récupérer les produits et les ajouter en tant qu'objets Produit
+$produits = [];
+foreach ($panierData['produits'] as $produitData) {
+$produits[] = new Produit($produitData['name'], $produitData['quantity'], $produitData['price']);
+}
+
+// Créer un panier avec l'objet Panier
+$paniers[] = new Panier(
+$panierData['basket_id'],
+$produits,
+$panierData['price']
 );
-$paniers[] = $panier;
 }
 
 return $paniers;

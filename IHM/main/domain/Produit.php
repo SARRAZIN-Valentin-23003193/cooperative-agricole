@@ -1,38 +1,31 @@
 <?php
 namespace domain;
 
-class Produit {
-    private $id;
-    private $nom;
-    private $prix;
-    private $quantiteDispo;
-    private $unite;
+class Produit
+{
+private $name;
+private $quantity;
+private $price;
 
-    public function __construct($id, $nom, $prix, $quantiteDispo, $unite) {
-        $this->id = $id;
-        $this->nom = $nom;
-        $this->prix = $prix;
-        $this->quantiteDispo = $quantiteDispo;
-        $this->unite = $unite;
-    }
+public function __construct($name, $quantity, $price)
+{
+$this->name = $name;
+$this->quantity = $quantity;
+$this->price = $price;
+}
 
-    public function getId() {
-        return $this->id;
-    }
+public function getName()
+{
+return $this->name;
+}
 
-    public function getNom() {
-        return $this->nom;
-    }
+public function getQuantity()
+{
+return $this->quantity;
+}
 
-    public function getPrix() {
-        return $this->prix;
-    }
-
-    public function getQuantiteDispo() {
-        return $this->quantiteDispo;
-    }
-
-    public function getUnite() {
-        return $this->unite;
-    }
+public function getPrice()
+{
+return $this->price;
+}
 }

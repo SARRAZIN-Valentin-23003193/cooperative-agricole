@@ -4,13 +4,19 @@ namespace domain;
 class Panier
 {
 private $id;
-private $produits;
+private $produits;  // Un tableau d'objets Produit
 private $prixTotal;
 
 public function __construct($id, $produits, $prixTotal)
 {
 $this->id = $id;
-$this->produits = $produits;
+
+// On transforme les données de produits en objets Produit
+$this->produits = [];
+foreach ($produits as $produitData) {
+$this->produits[] = new Produit($produitData['name'], $produitData['quantity'], $produitData['price']);
+}
+
 $this->prixTotal = $prixTotal;
 }
 
@@ -31,7 +37,6 @@ return $this->prixTotal;
 
 public function getDateMiseAJour()
 {
-// Retourner une date fictive ou l'implémenter selon la logique de ton application
-return "2025-04-02 15:49:11";  // Ex: valeur statique, tu peux l'ajuster.
+return "2025-04-02 15:49:11";  // Une valeur statique pour l'instant, peut être ajustée selon les besoins.
 }
 }
