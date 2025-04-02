@@ -1,34 +1,38 @@
 <?php
 namespace domain;
 
-class Commande {
-    private $id;
-    private $panier;
-    private $dateCommande;
-    private $retraitDate;
-    private $lieuRetrait;
+class Commande
+{
+private $id;
+private $produits;
+private $prixTotal;
+private $dateCommande;
 
-    public function __construct($id, Panier $panier, $retraitDate, $lieuRetrait) {
-        $this->id = $id;
-        $this->panier = $panier;
-        $this->dateCommande = date("Y-m-d H:i:s");
-        $this->retraitDate = $retraitDate;
-        $this->lieuRetrait = $lieuRetrait;
-    }
+public function __construct($id, $produits, $prixTotal, $dateCommande)
+{
+$this->id = $id;
+$this->produits = $produits;  // Tableau d'objets Produit
+$this->prixTotal = $prixTotal;
+$this->dateCommande = $dateCommande;
+}
 
-    public function getPanier() {
-        return $this->panier;
-    }
+public function getId()
+{
+return $this->id;
+}
 
-    public function getDateCommande() {
-        return $this->dateCommande;
-    }
+public function getProduits()
+{
+return $this->produits;
+}
 
-    public function getRetraitDate() {
-        return $this->retraitDate;
-    }
+public function getPrixTotal()
+{
+return $this->prixTotal;
+}
 
-    public function getLieuRetrait() {
-        return $this->lieuRetrait;
-    }
+public function getDateCommande()
+{
+return $this->dateCommande;
+}
 }

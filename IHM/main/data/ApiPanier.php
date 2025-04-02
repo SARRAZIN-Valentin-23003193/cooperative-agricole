@@ -7,7 +7,7 @@ include_once "service/PanierAccessInterface.php";
 use domain\Panier;
 use domain\Produit;
 include_once "domain/Panier.php";
-include_once "domain\Produit.php";
+include_once "domain/Produit.php";
 
 class ApiPanier implements PanierAccessInterface
 {
