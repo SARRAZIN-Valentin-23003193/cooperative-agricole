@@ -46,9 +46,10 @@ public class ProduitRessource {
     @Path("/updateproduit")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response updateProduit(Produit produit) {
-        Produit existingProduit = produitService.getProduit(produit.getId());
+    public Response updateProduit(@QueryParam("id") int id, Produit produit) {
+        Produit existingProduit = produitService.getProduit(id);
         if (existingProduit != null) {
+            produit.setId(id);
             produitService.updateProduit(produit);
             return Response.ok(produit).build();
         } else {
