@@ -3,40 +3,56 @@ namespace domain;
 
 class Panier
 {
-private $id;
-private $produits;  // Un tableau d'objets Produit
-private $prixTotal;
+    private $id;
+    private $nom; // Nom du panier
+    private $produits;  // Tableau d'objets Produit
+    private $prixTotal;
+    private $quantiteTotale; // Nouvelle propriété pour la quantité totale
 
-public function __construct($id, $produits, $prixTotal)
-{
-$this->id = $id;
+    public function __construct($id, $nom, $produits, $prixTotal)
+    {
+        $this->id = $id;
+        $this->nom = $nom;
+        $this->produits = [];
+        $this->quantiteTotale = 0; // Initialisation de la quantité totale
 
-// On transforme les données de produits en objets Produit
-$this->produits = [];
-foreach ($produits as $produitData) {
-$this->produits[] = new Produit($produitData['name'], $produitData['quantity'], $produitData['price']);
-}
+        // Transformation des produits et calcul de la quantité totale
+        foreach ($produits as $produitData) {
+            $produit = new Produit($produitData['name'], $produitData['quantity'], $produitData['price']);
+            $this->produits[] = $produit;
+            $this->quantiteTotale += $produitData['quantity']; // Ajout de la quantité
+        }
 
-$this->prixTotal = $prixTotal;
-}
+        $this->prixTotal = $prixTotal;
+    }
 
-public function getId()
-{
-return $this->id;
-}
+    public function getId()
+    {
+        return $this->id;
+    }
 
-public function getProduits()
-{
-return $this->produits;
-}
+    public function getNom()
+    {
+        return $this->nom;
+    }
 
-public function getPrixTotal()
-{
-return $this->prixTotal;
-}
+    public function getProduits()
+    {
+        return $this->produits;
+    }
 
-public function getDateMiseAJour()
-{
-return "2025-04-02 15:49:11";  // Une valeur statique pour l'instant, peut être ajustée selon les besoins.
-}
+    public function getPrixTotal()
+    {
+        return $this->prixTotal;
+    }
+
+    public function getQuantiteTotale()
+    {
+        return $this->quantiteTotale;
+    }
+
+    public function getDateMiseAJour()
+    {
+        return date("Y-m-d H:i:s"); // Date actuelle
+    }
 }
