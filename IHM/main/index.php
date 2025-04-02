@@ -9,18 +9,24 @@ session_start();
 require_once 'controllers/MainController.php';
 require_once 'gui/Layout.php';
 
-// Récupération de l'URL demandée
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+// Récupération de l'action via la méthode GET
+$action = isset($_GET['action']) ? $_GET['action'] : 'home'; // Valeur par défaut: home
 
 // Création du contrôleur principal
 $controller = new MainController();
 
-// Routing basique
-if ($uri == '/' || $uri == '/index.php') {
-    $controller->homePage();
-} elseif ($uri == '/about') {
-    $controller->aboutPage();
-} else {
-    http_response_code(404);
-    echo "Page not found";
+// Routage basé sur l'action passée dans l'URL
+switch ($action) {
+    case 'home':
+        $controller->homePage();
+        break;
+
+    case 'login':
+        $controller->loginPage();
+        break;
+
+    default:
+        http_response_code(404);
+        echo "Page not found";
+        break;
 }

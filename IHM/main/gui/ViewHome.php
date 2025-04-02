@@ -13,6 +13,7 @@ class ViewHome {
 
     public function display() {
         $content = "<h2>Page d'accueil</h2><p>Bienvenue sur notre site !</p>";
+        $content .= "<a href='?action=login'>connexion</a>";
         $this->layout->render($content);
     }
 }
