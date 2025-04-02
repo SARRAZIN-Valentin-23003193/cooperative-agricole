@@ -6,13 +6,11 @@ class User
 {
     private $id;
     private $email;
-    private $name;
 
-    public function __construct($id, $email, $name)
+    public function __construct($id, $email)
     {
         $this->id = $id;
         $this->email = $email;
-        $this->name = $name;
     }
 
     public function getId()
@@ -25,8 +23,4 @@ class User
         return $this->email;
     }
 
-    public function getName()
-    {
-        return $this->name;
-    }
 }
