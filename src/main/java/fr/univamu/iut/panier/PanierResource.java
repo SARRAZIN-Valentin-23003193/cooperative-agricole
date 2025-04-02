@@ -26,8 +26,8 @@ public class PanierResource {
      * Constructeur permettant d'initialiser le service avec une interface d'accès aux données
      * @param PanierRepo objet implémentant l'interface d'accès aux données
      */
-    public @Inject PanierResource(PanierRepositoryInterface PanierRepo ){
-        this.service = new PanierService( PanierRepo) ;
+    public @Inject PanierResource(PanierRepositoryInterface PanierRepo, ProduitRepositoryInterface ProduitRepo ){
+        this.service = new PanierService( PanierRepo, ProduitRepo ) ;
     }
 
     /**
@@ -58,6 +58,20 @@ public class PanierResource {
     public String getPanier( @PathParam("basket_id") String basket_id){
 
         String result = service.getPanierJSON(basket_id);
+
+        // si le livre n'a pas été trouvé
+        if( result == null )
+            throw new NotFoundException();
+
+        return result;
+    }
+
+    @GET
+    @Path("{basket_id}/produits")
+    @Produces("application/json")
+    public String getAllProduitsByPanier( @PathParam("basket_id") String basket_id){
+
+        String result = service.getAllProduitByPanierJSON(basket_id);
 
         // si le livre n'a pas été trouvé
         if( result == null )

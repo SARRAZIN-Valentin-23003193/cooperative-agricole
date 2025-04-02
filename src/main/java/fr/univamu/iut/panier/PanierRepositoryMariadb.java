@@ -119,4 +119,35 @@ public class PanierRepositoryMariadb   implements PanierRepositoryInterface, Clo
 
         return ( nbRowModified != 0 );
     }
+
+    public PanierWithProduits getAllProduitsByPanier (String basket_id) {
+
+        PanierWithProduits selectedPanier = null;
+
+        String query = "SELECT * FROM Produits_Paniers WHERE basket_id=?";
+
+        // construction et exécution d'une requête préparée
+        try ( PreparedStatement ps = dbConnection.prepareStatement(query) ){
+            ps.setString(1, basket_id);
+
+            // exécution de la requête
+            ResultSet result = ps.executeQuery();
+
+            // récupération du premier (et seul) tuple résultat
+            // (si la référence du livre est valide)
+            if( result.next())
+            {
+                String id = result.getString("id");
+                String item_id = result.getString("item_id");
+                String quantity = result.getString("quantity");
+                String unit = result.getString("unit");
+
+                // création et initialisation de l'objet Panier
+                selectedPanier = new PanierWithProduits(id, basket_id, item_id, quantity, unit);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return selectedPanier;
+    }
 }

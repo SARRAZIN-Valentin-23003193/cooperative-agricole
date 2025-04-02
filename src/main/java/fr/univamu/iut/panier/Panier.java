@@ -26,7 +26,7 @@ public class Panier {
      */
     protected String price;
 
-    /**
+    /**c
      * Constructeur par défaut
      */
     public Panier(){

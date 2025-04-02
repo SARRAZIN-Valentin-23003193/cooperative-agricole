@@ -34,4 +34,6 @@ public interface PanierRepositoryInterface {
      * @return true si le livre existe et la mise à jours a été faite, false sinon
      */
     public boolean updatePanier(String basket_id, String name, String quantity, String price);
+
+    public PanierWithProduits getAllProduitsByPanier(String basket_id);
 }

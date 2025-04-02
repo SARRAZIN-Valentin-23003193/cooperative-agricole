@@ -14,14 +14,17 @@ public class PanierService {
     /**
      * Objet permettant d'accéder au dépôt où sont stockées les informations sur les livres
      */
-    protected PanierRepositoryInterface PanierRepo ;
+    protected PanierRepositoryInterface PanierRepo;
+
+    protected ProduitRepositoryInterface ProduitRepo;
 
     /**
      * Constructeur permettant d'injecter l'accès aux données
      * @param PanierRepo objet implémentant l'interface d'accès aux données
      */
-    public  PanierService( PanierRepositoryInterface PanierRepo) {
+    public  PanierService( PanierRepositoryInterface PanierRepo, ProduitRepositoryInterface ProduitRepo) {
         this.PanierRepo = PanierRepo;
+        this.ProduitRepo = ProduitRepo;
     }
 
     /**
@@ -66,7 +69,25 @@ public class PanierService {
         return result;
     }
 
-    /**
+    public String getAllProduitByPanierJSON( String basket_id ){
+        String result = null;
+        PanierWithProduits myPanier = PanierRepo.getAllProduitsByPanier(basket_id                                                                                                                                                                                                                                                                                );
+
+        // si le livre a été trouvé
+        if( myPanier != null ) {
+
+            // création du json et conversion du livre
+            try (Jsonb jsonb = JsonbBuilder.create()) {
+                result = jsonb.toJson(myPanier);
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+
+/**
      * Méthode permettant de mettre à jours les informations d'un livre
      * @param basket_id référence du livre à mettre à jours
      * @param Panier les nouvelles infromations a été utiliser
