@@ -4,6 +4,12 @@ namespace controllers;
 use data\ApiUser;
 use domain\User;
 
+require_once 'data/ApiUser.php';
+require_once 'gui/ViewHome.php';
+require_once 'gui/ViewLogin.php';
+
+
+
 class MainController
 {
 private $apiUser;
@@ -16,7 +22,7 @@ $this->apiUser = new ApiUser();
 // Affichage de la page d'accueil
 public function homePage()
 {
-$layout = new \gui\Layout();
+    $layout = new \gui\Layout("gui/layout.html"); // Remplace par le bon chemin si nécessaire
 $view = new \gui\ViewHome($layout);
 $view->display();
 }
