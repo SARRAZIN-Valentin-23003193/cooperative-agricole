@@ -1,6 +1,10 @@
 <?php
 namespace domain;
 
+/**
+ * Classe Produit qui représente un produit dans un panier.
+ * Un produit contient un nom, une quantité et un prix.
+ */
 class Produit
 {
 private $name;

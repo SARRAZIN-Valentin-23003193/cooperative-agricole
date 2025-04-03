@@ -11,8 +11,16 @@ require_once 'gui/Layout.php';
 require_once 'gui/ViewPaniers.php';
 
 
+/**
+ * Contrôleur pour la gestion des paniers.
+ */
 class PanierController
 {
+    /**
+     * Affiche la liste de tous les paniers.
+     *
+     * @return void
+     */
     public function afficherPaniers(): void
     {
         $apiPanier = new ApiPanier();

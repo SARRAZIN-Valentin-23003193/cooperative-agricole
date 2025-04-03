@@ -2,6 +2,12 @@
 
 namespace service;
 
+/**
+ * Interface CommandeAccessInterface
+ *
+ * Cette interface définit les méthodes nécessaires pour accéder aux commandes d'un utilisateur.
+ * Elle permet de récupérer toutes les commandes existantes pour un utilisateur donné à partir de son ID.
+ */
 interface CommandeAccessInterface
 {
     /**

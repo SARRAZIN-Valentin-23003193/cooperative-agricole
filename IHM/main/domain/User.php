@@ -2,6 +2,10 @@
 
 namespace domain;
 
+/**
+ * Classe User qui représente un utilisateur dans le système.
+ * Un utilisateur possède un identifiant et un email.
+ */
 class User
 {
     private $id;

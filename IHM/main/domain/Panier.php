@@ -1,6 +1,10 @@
 <?php
 namespace domain;
 
+/**
+ * Classe Panier qui représente un panier d'achat.
+ * Un panier contient des produits, un prix total, et une quantité totale.
+ */
 class Panier
 {
     private $id;

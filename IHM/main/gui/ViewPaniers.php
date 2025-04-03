@@ -3,15 +3,34 @@ namespace gui;
 
 require_once 'Layout.php';
 
+/**
+ * Classe ViewPaniers qui est responsable de l'affichage des paniers disponibles.
+ * Elle génère une vue des paniers avec leurs produits associés et affiche des informations
+ * comme le prix total et la quantité totale. Si aucun panier n'est disponible, elle affiche
+ * un message approprié.
+ */
 class ViewPaniers {
     private $layout;
     private $paniers;
 
+    /**
+     * Constructeur de la classe ViewPaniers.
+     *
+     * @param Layout $layout L'objet Layout utilisé pour rendre le modèle de la page.
+     * @param array $paniers Un tableau d'objets Panier à afficher.
+     */
     public function __construct($layout, $paniers) {
         $this->layout = $layout;
         $this->paniers = $paniers;
     }
 
+    /**
+     * Affiche le contenu des paniers disponibles.
+     *
+     * Cette méthode génère le contenu HTML pour afficher les informations des paniers, y
+     * compris les produits qu'ils contiennent. Si aucun panier n'est disponible, un message
+     * approprié est affiché.
+     */
     public function display()
     {
         // Début du contenu de la page

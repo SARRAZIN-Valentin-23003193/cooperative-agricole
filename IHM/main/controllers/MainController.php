@@ -9,51 +9,64 @@ require_once 'gui/ViewHome.php';
 require_once 'gui/ViewLogin.php';
 
 
-
+/**
+ * Contrôleur principal de l'application.
+ */
 class MainController
 {
-private $apiUser;
+    /**
+     * @var ApiUser Instance de l'API pour la gestion des utilisateurs.
+     */
+    private $apiUser;
 
-public function __construct()
-{
-$this->apiUser = new ApiUser();
-}
-
-// Affichage de la page d'accueil
-public function homePage()
-{
-    $layout = new \gui\Layout("gui/layout.html"); // Remplace par le bon chemin si nécessaire
-$view = new \gui\ViewHome($layout);
-$view->display();
-}
-
-// Affichage du formulaire de connexion et traitement de la connexion
-public function loginPage()
-{
-// Vérification de la soumission du formulaire de connexion
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-// Récupération des données du formulaire
-$login = isset($_POST['login']) ? $_POST['login'] : '';
-$password = isset($_POST['password']) ? $_POST['password'] : '';
-
-// Appel à l'API pour authentifier l'utilisateur
-$user = $this->apiUser->authenticateUser($login, $password);
-if ($user) {
-        // Si l'utilisateur est authentifié, on stocke son ID dans la session
-        $_SESSION['user_id'] = $user->getId();
-
-        // Rediriger vers la page d'accueil ou autre page (ici on redirige vers la page d'accueil)
-        header('Location: index.php?action=home');
-        exit();
-    } else {
-        // Si l'authentification échoue, on peut afficher un message d'erreur
-        $errorMessage = "Identifiants invalides.";
+    /**
+     * Constructeur du contrôleur principal.
+     */
+    public function __construct() {
+        $this->apiUser = new ApiUser();
     }
-}
 
-// Affichage du formulaire de connexion
-$layout = new \gui\Layout("gui/layout.html");
-$view = new \gui\ViewLogin($layout, isset($errorMessage) ? $errorMessage : '');
-$view->display();
-}
+    /**
+     * Affiche la page d'accueil.
+     *
+     * @return void
+     */
+    public function homePage() {
+            $layout = new \gui\Layout("gui/layout.html"); // Remplace par le bon chemin si nécessaire
+        $view = new \gui\ViewHome($layout);
+        $view->display();
+    }
+
+    /**
+     * Affiche le formulaire de connexion et traite l'authentification.
+     *
+     * @return void
+     */    public function loginPage()
+    {
+        // Vérification de la soumission du formulaire de connexion
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Récupération des données du formulaire
+            $login = isset($_POST['login']) ? $_POST['login'] : '';
+            $password = isset($_POST['password']) ? $_POST['password'] : '';
+
+            // Appel à l'API pour authentifier l'utilisateur
+            $user = $this->apiUser->authenticateUser($login, $password);
+            if ($user) {
+                    // Si l'utilisateur est authentifié, on stocke son ID dans la session
+                    $_SESSION['user_id'] = $user->getId();
+
+                    // Rediriger vers la page d'accueil ou autre page (ici on redirige vers la page d'accueil)
+                    header('Location: index.php?action=paniers');
+                    exit();
+                } else {
+                    // Si l'authentification échoue, on peut afficher un message d'erreur
+                    $errorMessage = "Identifiants invalides.";
+                }
+        }
+
+        // Affichage du formulaire de connexion
+        $layout = new \gui\Layout("gui/layout.html");
+        $view = new \gui\ViewLogin($layout, isset($errorMessage) ? $errorMessage : '');
+        $view->display();
+    }
 }

@@ -1,12 +1,16 @@
 <?php
 namespace data;
 
-use service\UserAccessInterface;
-include_once "service/UserAccessInterface.php";
-
 use domain\User;
+use service\UserAccessInterface;
+
+include_once "service/UserAccessInterface.php";
 include_once "domain/User.php";
 
+/**
+ * Classe ApiUser qui implémente l'interface UserAccessInterface.
+ * Cette classe gère l'authentification des utilisateurs via une API externe.
+ */
 class ApiUser implements UserAccessInterface
 {
     /**

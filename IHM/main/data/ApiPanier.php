@@ -7,6 +7,10 @@ include_once "service/PanierAccessInterface.php";
 use domain\Panier;
 include_once "domain/Panier.php";
 
+/**
+ * Classe ApiPanier qui implémente l'interface PanierAccessInterface.
+ * Cette classe gère l'accès aux paniers via une API externe.
+ */
 class ApiPanier implements PanierAccessInterface
 {
     /**
