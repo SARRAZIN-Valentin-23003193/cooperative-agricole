@@ -31,11 +31,28 @@ public class ProduitService {
     }
 
     public void createProduit(Produit produit) {
-        produitRepo.createProduit(produit);
+        if (produit == null) {
+            throw new IllegalArgumentException("Le produit ne peut pas être null");
+        }
+        try {
+            produitRepo.createProduit(produit);
+        } catch (Exception e) {
+            throw new RuntimeException("Erreur lors de la création du produit: " + e.getMessage());
+        }
     }
 
     public void updateProduit(Produit produit) {
-        produitRepo.updateProduit(produit);
+        if (produit == null) {
+            throw new IllegalArgumentException("Le produit ne peut pas être null");
+        }
+        if (produit.getId() <= 0) {
+            throw new IllegalArgumentException("L'ID du produit doit être positif");
+        }
+        try {
+            produitRepo.updateProduit(produit);
+        } catch (Exception e) {
+            throw new RuntimeException("Erreur lors de la mise à jour du produit: " + e.getMessage());
+        }
     }
 
     public void deleteProduit(int id) {

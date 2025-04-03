@@ -71,12 +71,12 @@ public class ProduitRepositoryMariadb implements ProduitRepositoryInterface {
             PreparedStatement stmt = dbConnection.prepareStatement(query);
             stmt.setString(1, produit.getName());
             stmt.setInt(2, produit.getQuantity());
-            stmt.setInt(3, (int)produit.getPrice());
+            stmt.setDouble(3, produit.getPrice());
             stmt.setInt(4, produit.getId());
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println(e.getMessage());
+            throw new RuntimeException("Erreur lors de la mise à jour du produit: " + e.getMessage());
         }
     }
 
@@ -87,11 +87,11 @@ public class ProduitRepositoryMariadb implements ProduitRepositoryInterface {
             PreparedStatement stmt = dbConnection.prepareStatement(query);
             stmt.setString(1, produit.getName());
             stmt.setInt(2, produit.getQuantity());
-            stmt.setInt(3, (int)produit.getPrice());
+            stmt.setDouble(3, produit.getPrice());
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println(e.getMessage());
+            throw new RuntimeException("Erreur lors de la création du produit: " + e.getMessage());
         }
     }
 

@@ -35,13 +35,21 @@ public class Produit {
         return name;
     }
 
-    public void setName(String name) { this.name = name; }
+    public void setName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Le nom ne peut pas être vide");
+        }
+        this.name = name;
+    }
 
     public int getQuantity() {
         return quantity;
     }
 
     public void setQuantity(int quantity) {
+        if (quantity < 0) {
+            throw new IllegalArgumentException("La quantité ne peut pas être négative");
+        }
         this.quantity = quantity;
     }
 
@@ -50,6 +58,9 @@ public class Produit {
     }
 
     public void setPrice(double price) {
+        if (price < 0) {
+            throw new IllegalArgumentException("Le prix ne peut pas être négatif");
+        }
         this.price = price;
     }
 
